@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/icons";
 import { CtaBanner, FeatureStrip, GoldButton, IconBadge, PageHero, SectionTitle } from "@/components/ui";
 import { getDict } from "@/lib/getDict";
 import { isLocale } from "@/lib/i18n";
+import { serviceImages } from "@/lib/serviceImages";
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -20,10 +22,25 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {t.list.map((s) => (
-            <div key={s.title} className="card-gold p-6 text-center transition hover:-translate-y-1">
-              <IconBadge name={s.icon} />
-              <h3 className="mt-4 font-extrabold text-brand-900">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-brand-800/75">{s.desc}</p>
+            <div key={s.title} className="card-gold group overflow-hidden text-center transition hover:-translate-y-1">
+              <div className="relative aspect-[4/3] overflow-hidden bg-brand-900">
+                <Image
+                  src={serviceImages[s.icon]}
+                  alt={s.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-brand-950/75 to-transparent" />
+                <div className="absolute -bottom-0 start-4 translate-y-1/3 drop-shadow-lg">
+                  <IconBadge name={s.icon} size="sm" />
+                </div>
+              </div>
+              <div className="p-5 pt-7">
+                <h3 className="font-extrabold text-brand-900">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-brand-800/75">{s.desc}</p>
+                <GoldButton href={`/${locale}/request`} className="mt-5">{dict.common.learnMore}</GoldButton>
+              </div>
             </div>
           ))}
         </div>

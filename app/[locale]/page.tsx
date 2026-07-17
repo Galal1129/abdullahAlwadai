@@ -7,6 +7,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { categoryImages } from "@/lib/categoryImages";
 import { countryFlagImages } from "@/lib/countryFlags";
 import { categorySlugByIcon } from "@/lib/catalog";
+import { serviceImages } from "@/lib/serviceImages";
 import { notFound } from "next/navigation";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -87,11 +88,25 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <SectionTitle title={t.servicesTitle} subtitle={t.servicesTitleEn} intro={t.servicesIntro} />
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {dict.servicesShort.map((s) => (
-              <div key={s.title} className="card-gold p-6 text-center transition hover:-translate-y-1">
-                <IconBadge name={s.icon} />
-                <h3 className="mt-4 text-lg font-extrabold text-brand-900">{s.title}</h3>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-500">{s.titleEn}</p>
-                <p className="mt-3 text-sm leading-relaxed text-brand-800/75">{s.desc}</p>
+              <div key={s.title} className="card-gold group overflow-hidden text-center transition hover:-translate-y-1">
+                <div className="relative aspect-[16/9] overflow-hidden bg-brand-900">
+                  <Image
+                    src={serviceImages[s.icon]}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-brand-950/70 to-transparent" />
+                  <div className="absolute bottom-3 start-4 drop-shadow-lg">
+                    <IconBadge name={s.icon} size="sm" />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-extrabold text-brand-900">{s.title}</h3>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-500">{s.titleEn}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-brand-800/75">{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
