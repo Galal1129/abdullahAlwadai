@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  /* THAWQ brand palette — deep emerald + gold + ivory */
+  --color-brand-950: #03241c;
+  --color-brand-900: #052e24;
+  --color-brand-850: #063a2d;
+  --color-brand-800: #0a4a39;
+  --color-brand-700: #0e5c47;
+  --color-brand-600: #147257;
+  --color-brand-100: #d8e8e0;
+  --color-brand-50: #eef5f1;
+
+  --color-gold-600: #a9852f;
+  --color-gold-500: #c9a544;
+  --color-gold-400: #d9b95c;
+  --color-gold-300: #e5cb7c;
+  --color-gold-100: #f3e8c8;
+
+  --color-ivory-50: #fbf9f3;
+  --color-ivory-100: #f6f1e4;
+  --color-ivory-200: #ece4cf;
+
+  --font-ar: var(--font-tajawal), "Tajawal", sans-serif;
+  --font-en: var(--font-poppins), "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ivory-50 text-brand-900 antialiased;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-ar);
+}
+
+html[lang="en"] body {
+  font-family: var(--font-en);
+}
+
+/* Gold gradient text */
+.text-gold-gradient {
+  background: linear-gradient(120deg, #a9852f, #e5cb7c 45%, #c9a544);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gold gradient surfaces (buttons, badges) */
+.bg-gold-gradient {
+  background: linear-gradient(120deg, #b8923a, #e2c878 50%, #c9a544);
+}
+
+/* Deep green hero surface with subtle radial glow.
+   The solid color must survive .bg-dots overriding background-image
+   when both classes sit on the same element. */
+.bg-hero {
+  background:
+    radial-gradient(60rem 30rem at 80% -10%, rgba(201, 165, 68, 0.14), transparent 60%),
+    radial-gradient(40rem 24rem at 10% 110%, rgba(20, 114, 87, 0.35), transparent 60%),
+    linear-gradient(160deg, #063a2d 0%, #052e24 55%, #03241c 100%);
+  background-color: #052e24;
+}
+
+/* Dotted "world map" texture used on dark panels */
+.bg-dots {
+  background-image: radial-gradient(rgba(201, 165, 68, 0.22) 1px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+/* Thin gold frame used on light cards */
+.card-gold {
+  @apply rounded-2xl border border-gold-300/60 bg-white shadow-[0_10px_30px_-18px_rgba(5,46,36,0.35)];
+}
+
+/* Section divider ornament: — ✦ — */
+.ornament {
+  @apply flex items-center justify-center gap-3 text-gold-500;
+}
+.ornament::before,
+.ornament::after {
+  content: "";
+  @apply h-px w-14 bg-gold-400/70;
+}
